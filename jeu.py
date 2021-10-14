@@ -31,6 +31,7 @@ class Jeu:
             time.sleep(self.fps)
             
             #####VIDEO#####
+
             self.screen.blit(self.background,(0,0))
             self.screen.blit(self.doodle.render(),(self.doodle.x,self.doodle.y))
             for p in self.platforms:
@@ -90,10 +91,10 @@ class Jeu:
 
     def SearchCollisions(self):
         collisionIndex=self.doodle.MakeRect().collidelist(self.MakeColliderList())
-        print(collisionIndex)
+        #print(collisionIndex)
         if self.doodle.y+self.doodle.size[1]<=self.platforms[collisionIndex].y+50:#collision 50 is for error treshold due to movement between frames ,no need to check if collision Index !=-1 fsr
             self.doodle.velY=-self.doodle.maxYSpeed#jump again
-            print("collision")
+            #print("collision")
         return
     
     def SpawnPlatform(self,y=0):   
