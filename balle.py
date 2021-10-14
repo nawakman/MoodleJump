@@ -19,3 +19,6 @@ class Bullet:
         
     def MakeRect(self):
         return pygame.Rect(self.x,self.y,20,20)
+
+    def collision(self):#wainting group work
+        pass

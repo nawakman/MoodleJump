@@ -12,6 +12,7 @@ class Doodle:
         self.maxX=self.game.res[0]-(self.size[0]-abs(self.minX))#adjust automatically
         self.y=0
         self.lookRight=True
+        self.lockRight=False
         self.maxYSpeed=1200
         self.velY=0
         self.image=pygame.transform.scale(pygame.image.load("moodle.png"),self.size)#load this picture in size pixels
@@ -55,8 +56,8 @@ class Doodle:
 
         if self.bulletTime!=0 and time.time()>=self.bulletTime+0.5:#if doodle shooted a bullet 0.5 seconds before
             self.image=pygame.transform.scale(pygame.image.load("moodle.png"),self.size)
-            self.imgFlip=pygame.transform.flip(self.image,True,False)
             self.bulletTime=0#reset "timer"
+            self.lockRight=False#can move freely again
 
         for b in self.bullets:#updates all bullets position
             b.Tick()
@@ -67,7 +68,7 @@ class Doodle:
         return
     
     def render(self):
-        if self.lookRight==True:
+        if self.lookRight==True or self.lockRight==True:#player look or is forced to
             return self.image
         else:
             return self.imgFlip
@@ -92,8 +93,8 @@ class Doodle:
             self.image=pygame.transform.scale(pygame.image.load("moodleRight.png"),self.size)
         else:
             raise ValueError("bullet state must be 0,1 or 2")
-        self.imgFlip=pygame.transform.flip(self.image,True,False)#update flipped version
         self.bulletTime=time.time()
+        self.lockRight=True
         return
             
     def MakeRect(self):
