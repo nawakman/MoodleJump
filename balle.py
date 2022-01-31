@@ -16,6 +16,11 @@ class Bullet:
         self.y+=self.vector[1]*self.speed*self.game.fps
         if self.x<0 or self.x>self.game.res[0] or self.y<0 or self.y>self.game.res[1]:#if get outside of the screen
             self.game.doodle.bullets.remove(self)#destroy self ???
+
+        monsterIndex=self.MakeRect().collidelist(self.game.MakeMonstersList())
+        if monsterIndex!=-1:
+            self.game.monsters.pop(monsterIndex)
+            self.game.score+=100
         
     def MakeRect(self):
         return pygame.Rect(self.x,self.y,20,20)
